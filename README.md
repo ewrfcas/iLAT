@@ -16,7 +16,7 @@ We propose the two-stream convolution and the local autoregressive mask to maint
 These codes are only tested in pytorch==1.3.1.
 
 ### Preparation
-1. Download the pretrained [sketch-vqgan], [image-vqgan], and [transformer]. 
+1. Download the pretrained [sketch-vqgan](https://drive.google.com/file/d/1oz34ABOmukoQ8fV02A8bjumtKe1g5ONQ/view?usp=sharing), [image-vqgan](https://drive.google.com/file/d/1pDEs-43JNd30W-ptQhKWSrT5emN3wn6z/view?usp=sharing), and [transformer](https://drive.google.com/file/d/1jeF5F6RzCgLC7-jccgp0eWdJOsNmSqD8/view?usp=sharing). 
 2. For masked training, we provide irregular and segmentation masks ([download](https://drive.google.com/drive/folders/1eU6VaTWGdgCXXWueCXilt6oxHdONgUgf?usp=sharing)) with different masking rates. And you should define the mask file list before the training (flist_example.txt).
 
 ### Training
