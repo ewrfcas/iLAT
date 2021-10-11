@@ -1,0 +1,60 @@
+# =========================== GLOBAL Settings ===========================
+float16: True
+seed: 42
+restore: False
+model_type: 'iLAT'
+combined: True
+
+# =========================== DATA Settings ===========================
+dataset: 'ffhq'
+input_size: 256
+trans_size: 16
+flip: True
+center_crop: False
+irr_path: '../irregular_mask/irregular_mask_list.txt'
+seg_path: '../coco_mask/coco_mask_list.txt'
+
+# data
+data_flist:
+  ffhq: {
+    "train": 'data/ffhq/train_list.txt',
+    "val": 'data/ffhq/val_list.txt',
+    "test": 'data/ffhq/test_256',
+    "test_mask": 'data/ffhq/test_mask',
+    "train_cond": 'data/ffhq/train_sketch_256.txt',
+    "val_cond": 'data/ffhq/val_sketch_256.txt'
+  }
+
+# =========================== Model Settings ===========================
+init_gpt_with_vqvae: False # init the embedding with codebooks
+plm_in_cond: False
+lm_rate: 0.15   # language model rate
+sequence_length: 514
+n_quant: 256
+n_embd: 768
+n_head: 12
+attn_pdrop: 0.1
+resid_pdrop: 0.1
+embd_pdrop: 0.1
+vocab_size: 2048
+n_layer: 12
+
+# =========================== Training Settings ===========================
+lr: 5e-5
+beta1: 0.9                    # adam optimizer beta1
+beta2: 0.95                   # adam optimizer beta2
+weight_decay: 0.01
+batch_size: 16
+max_iters: 300000
+warmup_iters: 10000
+decay_type: 'warmup_linear'
+
+# =========================== Validation Settings ===========================
+eval_iters: 10000
+save_iters: 1000
+sample_iters: 1000
+sample_size: 12
+temperature: 1.0
+sample_topk: 50
+log_iters: 100
+save_best: True

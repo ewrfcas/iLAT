@@ -1,0 +1,91 @@
+# =========================== GLOBAL Settings ===========================
+float16: True
+seed: 42
+restore: False
+model_type: 'TS-VQGAN'
+combined: True
+
+# =========================== DATA Settings ===========================
+dataset: 'ffhq'
+input_size: 256
+flip: True
+center_crop: False
+irr_path: '../irregular_mask/irregular_mask_list.txt'
+seg_path: '../coco_mask/coco_mask_list.txt'
+
+mask_rates: [ 0.0, 0.7, 0.3 ] # [no_mask, partial_mask, all_mask]
+
+# data
+data_flist:
+  ffhq: {
+    "train": 'data/ffhq/train_list.txt',# training image list
+    "val": 'data/ffhq/val_list.txt',# validation image list
+    "test": 'data/ffhq/test_256',# test image fold with 256x256 images
+    "test_mask": 'data/ffhq/test_mask',# fixed test mask with 256x256
+    "train_cond": 'data/ffhq/train_sketch_256.txt',# training sketch list
+    "val_cond": 'data/ffhq/val_sketch_256.txt'# validation sketch list
+  }
+
+# =========================== MODEL Settings ===========================
+
+model:
+  params:
+    embed_dim: 256
+    n_embed: 2048
+    ddconfig:
+      act: SWISH # SWISH,RELU
+      norm: IN # IN,GN
+      use_attention: False
+      double_z: False
+      z_channels: 256
+      resolution: 256
+      ch: 64
+      ch_mult_enc: [ 1,2,4,8 ]
+      ch_mult: [ 1,2,4,6,8 ]
+      num_res_blocks: 2
+      attn_resolutions: [ 16 ]
+      dropout: 0.0
+
+    lossconfig:
+      params:
+        gan_type: hinge
+        in_channels: 3
+        out_ch: 3
+        disc_start: 0
+        disc_factor: 0.1
+        disc_weight: 1.0
+        mask_cb_weight: 1.5
+        valid_cb_weight: 0.5
+        codebook_weight: 1.0
+
+    sketchconfig:
+      params:
+        gan_type: hinge
+        in_channels: 1
+        out_ch: 1
+        disc_factor: 0.1
+        disc_weight: 1.0
+        codebook_weight: 1.0
+
+perceptual_weight: 0.2 # vgg19: 0.2
+vgg_weights: [ 1.0, 1.0, 1.0, 1.0, 1.0 ]
+vgg_norm: True
+
+# =========================== Training Settings ===========================
+d_lr: 2e-4
+g_lr: 2e-4                  # train 2e-4, finetune 4e-5
+beta1: 0.5                  # adam optimizer beta1
+beta2: 0.9                  # adam optimizer beta2
+batch_size: 16
+decay_type: 'milestone'
+drop_steps: 50000
+drop_gamma: 0.5
+
+# =========================== Validation Settings ===========================
+eval_iters: 10000
+save_iters: 1000
+sample_iters: 1000
+sample_size: 16
+log_iters: 100
+fid_test: True
+save_best: True
