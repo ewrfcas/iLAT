@@ -11,6 +11,7 @@ We propose the two-stream convolution and the local autoregressive mask to maint
 
 ### News
 - [x] Release the training codes.
+- [ ] Codes for pose editing.
 
 ### Requirements
 These codes are only tested in pytorch==1.3.1.
