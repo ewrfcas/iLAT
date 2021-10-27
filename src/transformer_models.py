@@ -347,8 +347,8 @@ class GETransformer(nn.Module):
                     self.opt.load_state_dict(data['opt'])
                     # sche restore
                     from tqdm import tqdm
-                    for _ in tqdm(range(data['iteration']), desc='recover sche...'):
-                        self.sche.step()
+                    # for _ in tqdm(range(data['iteration']), desc='recover sche...'):
+                    #     self.sche.step()
                     self.iteration = data['iteration']
             else:
                 print(transformer_path, 'not Found')

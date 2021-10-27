@@ -202,9 +202,9 @@ class TSVQGAN(nn.Module):
                 if self.config.restore:
                     self.g_opt.load_state_dict(data['g_opt'])
                     # sche restore
-                    from tqdm import tqdm
-                    for _ in tqdm(range(data['iteration']), desc='recover sche...'):
-                        self.g_sche.step()
+                    # from tqdm import tqdm
+                    # for _ in tqdm(range(data['iteration']), desc='recover sche...'):
+                    #     self.g_sche.step()
                     self.iteration = data['iteration']
             else:
                 print(g_path, 'not Found')
@@ -222,9 +222,9 @@ class TSVQGAN(nn.Module):
                 if self.config.restore:
                     self.d_opt.load_state_dict(data['d_opt'])
                     # sche restore
-                    from tqdm import tqdm
-                    for _ in tqdm(range(data['iteration']), desc='recover sche...'):
-                        self.d_sche.step()
+                    # from tqdm import tqdm
+                    # for _ in tqdm(range(data['iteration']), desc='recover sche...'):
+                    #     self.d_sche.step()
             else:
                 print(d_path, 'not Found')
                 raise FileNotFoundError
